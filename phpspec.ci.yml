@@ -1,0 +1,6 @@
+suites:
+    jinritemai_suite:
+        namespace: Jinritemai
+        psr4_prefix: Jinritemai
+formatter.name: pretty
+
