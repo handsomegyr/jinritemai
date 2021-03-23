@@ -150,10 +150,7 @@ class Client
 		$params = array();
 		$params['method'] = str_replace('/', '.', $apiMethodName);
 		$params['app_key'] = $this->getAppId();
-		$needToken = $request->isNeedAccessToken();
-		if ($needToken) {
-			$params['access_token'] = $this->getAccessToken();
-		}
+
 		// 无（注意：param_json请按照空对象 "{}" 传递）
 		if (empty($param_json)) {
 			$params['param_json'] = '{}';
@@ -163,6 +160,10 @@ class Client
 		$params['timestamp'] = date("Y-m-d H:i:s", time());
 		$params['v'] = $this->_v;
 		$params['sign'] = $this->signature($params);
+		$needToken = $request->isNeedAccessToken();
+		if ($needToken) {
+			$params['access_token'] = $this->getAccessToken();
+		}
 		$headers = array();
 		$rst = $this->getRequest()->post($this->_url . $apiMethodName, $params, $headers);
 		return $this->rst($rst);
